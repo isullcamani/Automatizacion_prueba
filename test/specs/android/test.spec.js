@@ -1,4 +1,7 @@
+
+import AddNoteScreen from "./funciones.js";
 describe('Examen Automatizacion',() => {
+    const addNoteScreen = new AddNoteScreen();
     const nameString="Ismael Sullcamani";
     const direccionString="Zona San pedro";
     const passwString="Bsol123**";
@@ -10,39 +13,38 @@ describe('Examen Automatizacion',() => {
         await driver.activateApp('com.sourcey.materialloginexample');
     });
 	it('Crear usuario nuevo' ,async () => {
-        await $('//android.widget.TextView[@resource-id="com.sourcey.materialloginexample:id/link_signup"]').click();
+        await addNoteScreen.BtnNuevoUser.click();
 
-        const name = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_name"]');
+        const name = addNoteScreen.inputName;
         name.setValue(nameString);
 
-        const Addres = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_address"]');
+        const Addres = addNoteScreen.inputAddress;
         Addres.setValue(direccionString);
 
-        const email = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_email"]');
+        const email = addNoteScreen.inputEmail;
         email.setValue(correoString);
 
-        const mobileNumber = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_mobile"]');
+        const mobileNumber = addNoteScreen.inputMobile;
         mobileNumber.setValue(celString);
 
-        const password = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_password"]');
+        const password = addNoteScreen.inputPassword;
         password.setValue(passwString);
 
-        const passwordTwo = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_reEnterPassword"]');
+        const passwordTwo =  addNoteScreen.inputPassword2;
         passwordTwo.setValue(passwString);
         
         //pulsamos boton
         await driver.pause(3000);//pausa de 5 segundos
         await $('//android.widget.Button[@resource-id="com.sourcey.materialloginexample:id/btn_signup"]').click();
+    
         //assertion
-        await expect($('//android.widget.ImageView[@content-desc="More options"]')).toBeDisplayed();
+        await expect(addNoteScreen.moreOption).toBeDisplayed();
 		// await expect($('//android.widget.TextView[@text="Hello world!"]')).toBeDisplayed();
 		await expect($('//android.widget.TextView[@text="Hello world!"]')).toHaveText("Hello world!");
         // await driver.back();
 	})
 
     it('iniciar sesion con usuario creado' ,async () => {
-        // await driver.closeApp();
-        // await driver.launchApp();
         const emailLogin = await $('//android.widget.EditText[@resource-id="com.sourcey.materialloginexample:id/input_email"]');
         emailLogin.setValue(correoString);
 
@@ -54,7 +56,7 @@ describe('Examen Automatizacion',() => {
         await $('//android.widget.Button[@resource-id="com.sourcey.materialloginexample:id/btn_login"]').click();
 
         //assertion
-        await expect($('//android.widget.ImageView[@content-desc="More options"]')).toBeDisplayed();
+        await expect(addNoteScreen.moreOption).toBeDisplayed();
 		// await expect($('//android.widget.TextView[@text="Hello world!"]')).toBeDisplayed();
 		await expect($('//android.widget.TextView[@text="Hello world!"]')).toHaveText("Hello world!");
 
